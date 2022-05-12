@@ -16,5 +16,7 @@ jobs:
     - uses: actions/checkout@v3
     - name: Build the Docker image
       run: ./bin/docker_build.bash
-    - name: docker run
+    - name: docker run composer install
+      run: ./bin/run.bash composer install --prefer-dist --no-progress
+    - name: docker run composer check
       run: ./bin/run.bash composer check

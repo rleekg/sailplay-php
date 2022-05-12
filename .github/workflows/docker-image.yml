@@ -15,6 +15,6 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Build the Docker image
-      run: docker build . --file docker/Dockerfile --tag sailplay-sdk-php-cli:$(date +%s)
+      run: ./bin/docker_build.bash
     - name: docker run
-      run: docker run --rm --volume "$(pwd):/home/dev/app/" sailplay-sdk-php-cli composer check
+      run: ./bin/run.bash composer check

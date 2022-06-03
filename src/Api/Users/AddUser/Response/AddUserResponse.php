@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Studio15\SailPlay\SDK\Api\Users\Info\Response;
+namespace Studio15\SailPlay\SDK\Api\Users\AddUser\Response;
 
 /**
- * @see https://ru.sailplay.dev/reference/users-info
+ * @see https://ru.sailplay.dev/reference/users-add
  */
-final class infoResponse
+final class AddUserResponse
 {
     /**
      * Статус ответа
@@ -68,7 +68,7 @@ final class infoResponse
     /**
      * Пол: 1 - Мужской, 2 - Женский, 3 – Другой
      *
-     * @var ?string
+     * @var ?int
      */
     private $sex;
 
@@ -87,43 +87,12 @@ final class infoResponse
     private $avatar;
 
     /**
-     * Информация о баллах
-     *
-     * @var ?Points
-     */
-    private $points;
-
-    /**
-     * Хэш аутентификации
-     *
-     * @var ?string
-     */
-    private $authHash;
-
-    /**
      * Реферальный промокод
      *
      * @var ?string
      */
     private $referralPromocode;
 
-    /**
-     * Подписки
-     *
-     * @var string[]|null
-     */
-    private $subscriptions;
-
-    /**
-     * История
-     *
-     * @var ?History
-     */
-    private $history;
-
-    /**
-     * @param string[]|null $subscriptions
-     */
     public function __construct(
         string $status,
         ?int $id,
@@ -133,14 +102,10 @@ final class infoResponse
         ?string $middleName,
         ?string $lastName,
         ?string $birthDate,
-        ?string $sex,
+        ?int $sex,
         ?string $originUserId,
         ?string $avatar,
-        ?Points $points,
-        ?string $authHash,
-        ?string $referralPromocode,
-        ?array $subscriptions,
-        ?History $history
+        ?string $referralPromocode
     ) {
         $this->status = $status;
         $this->id = $id;
@@ -153,11 +118,7 @@ final class infoResponse
         $this->sex = $sex;
         $this->originUserId = $originUserId;
         $this->avatar = $avatar;
-        $this->points = $points;
-        $this->authHash = $authHash;
         $this->referralPromocode = $referralPromocode;
-        $this->subscriptions = $subscriptions;
-        $this->history = $history;
     }
 
     public function getStatus(): string
@@ -200,7 +161,7 @@ final class infoResponse
         return $this->birthDate;
     }
 
-    public function getSex(): ?string
+    public function getSex(): ?int
     {
         return $this->sex;
     }
@@ -215,31 +176,8 @@ final class infoResponse
         return $this->avatar;
     }
 
-    public function getPoints(): ?Points
-    {
-        return $this->points;
-    }
-
-    public function getAuthHash(): ?string
-    {
-        return $this->authHash;
-    }
-
     public function getReferralPromocode(): ?string
     {
         return $this->referralPromocode;
-    }
-
-    /**
-     * @return string[]|null
-     */
-    public function getSubscriptions(): ?array
-    {
-        return $this->subscriptions;
-    }
-
-    public function getHistory(): ?History
-    {
-        return $this->history;
     }
 }

@@ -1,18 +1,18 @@
 <?php
 
-namespace Studio15\SailPlay\SDK\Api\Users\Info;
+namespace Studio15\SailPlay\SDK\Api\Users\AddUser;
 
 use Exception;
 use Studio15\SailPlay\SDK\Api\Errors\InvalidTokenException;
-use Studio15\SailPlay\SDK\Api\Users\Info\Response\InfoResponse;
+use Studio15\SailPlay\SDK\Api\Users\AddUser\Response\AddUserResponse;
 use Studio15\SailPlay\SDK\Api\Users\UserNotFoundException;
 use Studio15\SailPlay\SDK\Infrastructure\ApiHttpClient;
 use Studio15\SailPlay\SDK\Infrastructure\Error\ApiErrorException;
 use Throwable;
 
-final class Info
+final class AddUser
 {
-    private const RESOURCE_PATH = 'users/info';
+    private const RESOURCE_PATH = 'users/add';
 
     /**
      * @var ApiHttpClient
@@ -29,13 +29,13 @@ final class Info
      * @throws ApiErrorException
      * @throws Throwable
      */
-    public function __invoke(InfoRequest $infoRequest, string $token): InfoResponse
+    public function __invoke(AddUserRequest $addRequest, string $token): AddUserResponse
     {
         try {
             $infoResponse = $this->apiClient->get(
                 self::RESOURCE_PATH,
-                InfoResponse::class,
-                $infoRequest,
+                AddUserResponse::class,
+                $addRequest,
                 $token
             );
         } catch (ApiErrorException $apiErrorException) {
@@ -48,10 +48,6 @@ final class Info
     private function resolveApiError(ApiErrorException $apiErrorException): Exception
     {
         $code = $apiErrorException->getCode();
-
-        if ($code === -4000) {
-            return new UserNotFoundException($apiErrorException);
-        }
 
         if ($code === -7) {
             return new InvalidTokenException($apiErrorException);
